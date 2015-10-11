@@ -23,6 +23,7 @@ public class TheChordApp extends Application {
 
         DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder();
         builder.cacheInMemory(false);
+        builder.cacheOnDisk(true);
         builder.bitmapConfig(Bitmap.Config.RGB_565);
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);

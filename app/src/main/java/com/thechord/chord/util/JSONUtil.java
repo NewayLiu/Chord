@@ -42,7 +42,6 @@ public class JSONUtil<T> {
                 if (!"".equals(annotation.className())) {
                     className = annotation.className();
                 }
-
             }
 
 
