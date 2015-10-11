@@ -57,20 +57,20 @@ public class FilmGridViewAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.grid_view_file_item,parent,false);
             holder = new ViewHolder();
             holder.imgViewMovie = (ImageView) convertView.findViewById(R.id.imgView_movie_img);
-            holder.txtViewName = (TextView) convertView.findViewById(R.id.txtView_movie_name);
+            //holder.txtViewName = (TextView) convertView.findViewById(R.id.txtView_movie_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
         DouBanMovie movie = movieList.get(position);
         ImageLoader.getInstance().displayImage(movie.getImage().getMedium(),holder.imgViewMovie);
-        holder.txtViewName.setText(movie.getTitle());
+        //holder.txtViewName.setText(movie.getTitle());
         return convertView;
     }
 
     private class ViewHolder{
         ImageView imgViewMovie;
-        TextView txtViewName;
+        //TextView txtViewName;
     }
 
 }

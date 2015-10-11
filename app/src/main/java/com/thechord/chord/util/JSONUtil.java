@@ -50,7 +50,7 @@ public class JSONUtil<T> {
 
                 if (className != null) {
                     field.set(obj,getInstanceFromJsonObject(jsonObj.getJSONObject(jsonField),Class.forName(className).newInstance().getClass()));
-                    break;
+                    continue;
                 }
 
                 if (field.getType() == String.class) {
