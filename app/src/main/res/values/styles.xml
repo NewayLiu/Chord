@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="likeCheck" parent="@android:style/Widget.CompoundButton.CheckBox">
+            <item name="android:button">@drawable/likecheckbox</item>
+        </style>
+
+</resources>

@@ -1,0 +1,31 @@
+apply plugin: 'com.android.application'
+apply plugin: 'newlens'
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+
+    defaultConfig {
+        applicationId "com.thechord.chord"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.loopj.android:android-async-http:1.4.8'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile "com.networkbench.newlens.agent.android:nbs.newlens.agent:2.2.6"
+    compile files('libs/fastjson-1.2.6.jar')
+}
