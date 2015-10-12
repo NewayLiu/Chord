@@ -13,6 +13,8 @@ import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.thechord.chord.adapter.FilmGridViewAdapter;
 import com.thechord.chord.entity.DouBanMovie;
@@ -29,15 +31,16 @@ import java.util.Set;
 
 public class MainActivity extends BaseActivity {
 
-    private GridView gridMovies;
+    private PullToRefreshGridView gridMovies;
     private FilmGridViewAdapter filmGridViewAdapter;
+    private int currentPageNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         filmGridViewAdapter = new FilmGridViewAdapter(this);
         gridMovies.setAdapter(filmGridViewAdapter);
-        DouBanAPI.getMovieTop250(1, new DouBanAPI.DouBanAPICallback() {
+        DouBanAPI.getMovieTop250(currentPageNum, new DouBanAPI.DouBanAPICallback() {
             @Override
             public void onGetDouBanBeanFromServer(List<DouBanMovie> movieList) {
                 filmGridViewAdapter.update(movieList);
@@ -52,11 +55,25 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        gridMovies = (GridView) findViewById(R.id.grid_movies);
+        gridMovies = (PullToRefreshGridView) findViewById(R.id.grid_movies);
+        gridMovies.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
     }
 
-    private void initListener(){
-
+    @Override
+    protected void registerListener(){
+        gridMovies.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<GridView>() {
+            @Override
+            public void onRefresh(final PullToRefreshBase<GridView> pullToRefreshBase) {
+                currentPageNum += 1;
+                DouBanAPI.getMovieTop250(currentPageNum, new DouBanAPI.DouBanAPICallback() {
+                    @Override
+                    public void onGetDouBanBeanFromServer(List<DouBanMovie> movieList) {
+                        pullToRefreshBase.onRefreshComplete();
+                        filmGridViewAdapter.update(movieList);
+                    }
+                });
+            }
+        });
     }
 
 }

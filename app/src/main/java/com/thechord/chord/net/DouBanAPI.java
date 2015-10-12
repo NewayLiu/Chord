@@ -28,7 +28,7 @@ public class DouBanAPI {
 
     public static final String HOST = "http://api.douban.com";
     public static final String MOVIE_TOP_250 = "/v2/movie/top250";
-    public static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE = 21;
 
 
     public static String getAbsoluteURL(String path) {

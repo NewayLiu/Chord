@@ -63,7 +63,7 @@ public class FilmGridViewAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
         DouBanMovie movie = movieList.get(position);
-        ImageLoader.getInstance().displayImage(movie.getImage().getMedium(),holder.imgViewMovie);
+        ImageLoader.getInstance().displayImage(movie.getImage().getLarge(),holder.imgViewMovie);
         //holder.txtViewName.setText(movie.getTitle());
         return convertView;
     }

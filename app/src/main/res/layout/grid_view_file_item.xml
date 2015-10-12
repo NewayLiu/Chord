@@ -11,6 +11,7 @@
         android:id="@+id/imgView_movie_img"
         android:layout_width="match_parent"
         android:layout_height="126dp"
+        android:scaleType="fitXY"
         />
 
 </LinearLayout>
