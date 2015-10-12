@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/imgView_movie_intro_img"
+        android:layout_width="96dp"
+        android:layout_height="144dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:src="@mipmap/ic_launcher"
+        />
+
+    <TextView
+        android:id="@+id/imgView_movie_name_lable"
+        android:layout_toRightOf="@+id/imgView_movie_intro_img"
+        style="@style/movieIntroductionLabel"
+        android:text="导演"
+        />
+
+    <TextView
+        android:id="@+id/imgView_movie_name"
+        android:layout_toRightOf="@+id/imgView_movie_name_lable"
+        android:layout_alignBaseline="@+id/imgView_movie_name_lable"
+        style="@style/movieIntroductionLabel"
+        android:text="张艺谋"
+        />
+
+    <TextView
+        android:id="@+id/imgView_movie_year_lable"
+        android:layout_toRightOf="@+id/imgView_movie_intro_img"
+        android:layout_below="@+id/imgView_movie_name_lable"
+        style="@style/movieIntroductionLabel"
+        android:text="年代"
+        />
+
+    <TextView
+        android:id="@+id/imgView_movie_year"
+        android:layout_toRightOf="@+id/imgView_movie_year_lable"
+        android:layout_alignBaseline="@+id/imgView_movie_year_lable"
+        style="@style/movieIntroductionLabel"
+        android:text="80年代"
+        />
+
+
+    <TextView
+        android:id="@+id/imgView_movie_tag_lable"
+        android:layout_toRightOf="@+id/imgView_movie_intro_img"
+        android:layout_below="@+id/imgView_movie_year_lable"
+        style="@style/movieIntroductionLabel"
+        android:text="标签"
+        />
+
+    <TextView
+        android:id="@+id/imgView_movie_tag"
+        android:layout_toRightOf="@+id/imgView_movie_tag_lable"
+        android:layout_alignBaseline="@+id/imgView_movie_tag_lable"
+        style="@style/movieIntroductionLabel"
+        android:text="生活,社会"
+        />
+
+    <TextView
+        android:id="@+id/imgView_movie_time_lable"
+        android:layout_toRightOf="@+id/imgView_movie_intro_img"
+        android:layout_below="@+id/imgView_movie_tag_lable"
+        style="@style/movieIntroductionLabel"
+        android:text="时长"
+        />
+
+    <TextView
+        android:id="@+id/imgView_movie_time"
+        android:layout_toRightOf="@+id/imgView_movie_time_lable"
+        android:layout_alignBaseline="@+id/imgView_movie_time_lable"
+        style="@style/movieIntroductionLabel"
+        android:text="108分钟"
+        />
+
+
+</RelativeLayout>
