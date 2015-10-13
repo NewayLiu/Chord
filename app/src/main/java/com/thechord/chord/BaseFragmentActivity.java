@@ -1,14 +1,15 @@
 package com.thechord.chord;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 import com.networkbench.agent.impl.NBSAppAgent;
+
+import roboguice.activity.RoboFragmentActivity;
 
 /**
  * Created by Neway on 2015/10/12.
  */
-public abstract class BaseFragmentActivity extends FragmentActivity {
+public abstract class BaseFragmentActivity extends RoboFragmentActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

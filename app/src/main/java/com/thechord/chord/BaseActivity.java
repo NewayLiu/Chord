@@ -5,10 +5,12 @@ import android.os.Bundle;
 
 import com.networkbench.agent.impl.NBSAppAgent;
 
+import roboguice.activity.RoboActivity;
+
 /**
  * Created by Neway on 2015/8/27.
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends RoboActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

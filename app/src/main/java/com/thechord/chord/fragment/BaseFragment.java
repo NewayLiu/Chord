@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import roboguice.fragment.RoboFragment;
+
 /**
  * Created by Neway on 2015/10/12.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RoboFragment {
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
