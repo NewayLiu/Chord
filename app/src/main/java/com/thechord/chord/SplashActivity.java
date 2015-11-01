@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import roboguice.inject.ContentView;
 
+
+@ContentView(R.layout.activity_splash)
 public class SplashActivity extends BaseActivity {
 
     @Override
@@ -19,15 +22,5 @@ public class SplashActivity extends BaseActivity {
                 startActivity(intent);
             }
         },3 * 1000);
-    }
-
-    @Override
-    protected int getActivityLayout() {
-        return R.layout.activity_splash;
-    }
-
-    @Override
-    protected void initView() {
-
     }
 }

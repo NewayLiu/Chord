@@ -82,7 +82,7 @@
         android:id="@+id/txtView_movie_brief"
         android:layout_below="@+id/imgView_movie_time"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
@@ -90,6 +90,7 @@
         android:maxLines="4"
         />
 
+    
     <com.thechord.chord.widget.ScrollListView
         android:id="@+id/listView_actors"
         android:layout_width="match_parent"

@@ -1,11 +1,14 @@
 package com.thechord.chord.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.thechord.chord.util.JsonFieldAnnotation;
 
 /**
  * Created by Neway on 2015/8/20.
  */
-public class DouBanMovie {
+public class DouBanMovie implements Parcelable{
 
     private String id;
     private String title;
@@ -33,6 +36,38 @@ public class DouBanMovie {
     private String subType;
     private String website;
     //private String [] genres; // movie types
+
+    public DouBanMovie(){
+
+    }
+
+
+    protected DouBanMovie(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        originalTitle = in.readString();
+        alt = in.readString();
+        mobileURL = in.readString();
+        year = in.readString();
+        ratingsCount = in.readInt();
+        wishCount = in.readInt();
+        collectCount = in.readInt();
+        images = in.readParcelable(Image.class.getClassLoader());
+        subType = in.readString();
+        website = in.readString();
+    }
+
+    public static final Creator<DouBanMovie> CREATOR = new Creator<DouBanMovie>() {
+        @Override
+        public DouBanMovie createFromParcel(Parcel in) {
+            return new DouBanMovie(in);
+        }
+
+        @Override
+        public DouBanMovie[] newArray(int size) {
+            return new DouBanMovie[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -132,4 +167,25 @@ public class DouBanMovie {
         this.images = image;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(originalTitle);
+        dest.writeString(alt);
+        dest.writeString(mobileURL);
+        dest.writeString(year);
+        dest.writeInt(ratingsCount);
+        dest.writeInt(wishCount);
+        dest.writeInt(collectCount);
+        dest.writeParcelable(images, flags);
+        dest.writeString(subType);
+        dest.writeString(website);
+    }
 }

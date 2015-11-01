@@ -1,36 +1,27 @@
 package com.thechord.chord;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.thechord.chord.adapter.FilmGridViewAdapter;
 import com.thechord.chord.entity.DouBanMovie;
 import com.thechord.chord.net.DouBanAPI;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 
 
+@ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
+    @InjectView(R.id.grid_movies)
     private PullToRefreshGridView gridMovies;
     private FilmGridViewAdapter filmGridViewAdapter;
     private int currentPageNum = 1;
@@ -49,13 +40,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected int getActivityLayout() {
-        return R.layout.activity_main;
+    protected void onStart() {
+        super.onStart();
+        initView();
     }
 
-    @Override
     protected void initView() {
-        gridMovies = (PullToRefreshGridView) findViewById(R.id.grid_movies);
         gridMovies.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
     }
 
@@ -72,6 +62,16 @@ public class MainActivity extends BaseActivity {
                         filmGridViewAdapter.update(movieList);
                     }
                 });
+            }
+        });
+
+        gridMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, MovieDetailActivity.class);
+                intent.putExtra("movie", filmGridViewAdapter.getItem(position));
+                startActivity(intent);
             }
         });
     }

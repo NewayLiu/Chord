@@ -33,6 +33,10 @@ public class JSONUtil<T> {
 
             String jsonField = field.getName();
             String className = null;
+            if(jsonField.equals("Creator")) {
+                continue;
+            }
+
             JsonFieldAnnotation annotation = field.getAnnotation(JsonFieldAnnotation.class);
             if (annotation != null) {
                 if (!"".equals(annotation.value())) {
