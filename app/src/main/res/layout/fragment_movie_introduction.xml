@@ -26,7 +26,6 @@
         android:layout_toRightOf="@+id/imgView_movie_name_lable"
         android:layout_alignBaseline="@+id/imgView_movie_name_lable"
         style="@style/movieIntroductionLabel"
-        android:text="张艺谋"
         />
 
     <TextView
@@ -42,7 +41,6 @@
         android:layout_toRightOf="@+id/imgView_movie_year_lable"
         android:layout_alignBaseline="@+id/imgView_movie_year_lable"
         style="@style/movieIntroductionLabel"
-        android:text="80年代"
         />
 
 
@@ -59,7 +57,6 @@
         android:layout_toRightOf="@+id/imgView_movie_tag_lable"
         android:layout_alignBaseline="@+id/imgView_movie_tag_lable"
         style="@style/movieIntroductionLabel"
-        android:text="生活,社会"
         />
 
     <TextView
@@ -75,7 +72,6 @@
         android:layout_toRightOf="@+id/imgView_movie_time_lable"
         android:layout_alignBaseline="@+id/imgView_movie_time_lable"
         style="@style/movieIntroductionLabel"
-        android:text="108分钟"
         />
 
     <TextView
@@ -85,9 +81,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:minLines="4"
         android:maxLines="4"
+        android:ellipsize="end"
         />
 
     

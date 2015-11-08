@@ -13,6 +13,16 @@ import java.util.List;
  */
 public class JSONUtil<T> {
 
+    private static final JSONUtil jsonUtil = new JSONUtil();
+
+    private JSONUtil(){
+
+    }
+
+    public static JSONUtil getJSONUtil(){
+        return jsonUtil;
+    }
+
 
     public T getInstanceFromJsonObject(JSONObject jsonObj, Class<?> instance) {
         Object obj = null;

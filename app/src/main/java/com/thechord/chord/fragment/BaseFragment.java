@@ -1,10 +1,7 @@
 package com.thechord.chord.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import roboguice.fragment.RoboFragment;
 
@@ -14,4 +11,16 @@ import roboguice.fragment.RoboFragment;
  */
 public abstract class BaseFragment extends RoboFragment {
 
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        registerListener();
+    }
+
+    protected void registerListener(){
+
+    }
 }
+
+

@@ -15,13 +15,12 @@ public class DouBanMovie implements Parcelable{
 
     @JsonFieldAnnotation("original_title")
     private String originalTitle;
-    //private String [] aka;
     private String alt;
 
     private String mobileURL;
 
-    @JsonFieldAnnotation("year")
     private String year;
+    private String summary;
 
     //private Rating rating
     private int ratingsCount;
@@ -35,7 +34,7 @@ public class DouBanMovie implements Parcelable{
 
     private String subType;
     private String website;
-    //private String [] genres; // movie types
+    private String [] genres;
 
     public DouBanMovie(){
 
@@ -55,7 +54,10 @@ public class DouBanMovie implements Parcelable{
         images = in.readParcelable(Image.class.getClassLoader());
         subType = in.readString();
         website = in.readString();
+        summary = in.readString();
+        genres = (String[]) in.readArray(String.class.getClassLoader());
     }
+
 
     public static final Creator<DouBanMovie> CREATOR = new Creator<DouBanMovie>() {
         @Override
@@ -167,6 +169,22 @@ public class DouBanMovie implements Parcelable{
         this.images = image;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String[] getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String[] genres) {
+        this.genres = genres;
+    }
+
 
     @Override
     public int describeContents() {
@@ -181,11 +199,13 @@ public class DouBanMovie implements Parcelable{
         dest.writeString(alt);
         dest.writeString(mobileURL);
         dest.writeString(year);
+        dest.writeString(summary);
         dest.writeInt(ratingsCount);
         dest.writeInt(wishCount);
         dest.writeInt(collectCount);
         dest.writeParcelable(images, flags);
         dest.writeString(subType);
         dest.writeString(website);
+        dest.writeStringArray(genres);
     }
 }

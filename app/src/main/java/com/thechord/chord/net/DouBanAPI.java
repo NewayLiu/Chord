@@ -28,6 +28,7 @@ public class DouBanAPI {
 
     public static final String HOST = "http://api.douban.com";
     public static final String MOVIE_TOP_250 = "/v2/movie/top250";
+    public static final String MOVIE_ITEM_DETAIL = "/v2/movie/subject/";
     public static final int PAGE_SIZE = 21;
 
 
@@ -52,7 +53,7 @@ public class DouBanAPI {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    List<DouBanMovie> movieList = new JSONUtil().getInstatnceFromJSONObject(response.getJSONArray("subjects"), new DouBanMovie().getClass());
+                    List<DouBanMovie> movieList = JSONUtil.getJSONUtil().getInstatnceFromJSONObject(response.getJSONArray("subjects"), new DouBanMovie().getClass());
                     callback.onGetDouBanBeanFromServer(movieList);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -60,6 +61,18 @@ public class DouBanAPI {
             }
         });
 
+
+    }
+
+
+    public static void loadMovieDetail(String movieID, final DouBanAPICallback callback){
+        get(MOVIE_ITEM_DETAIL+movieID,null,new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                DouBanMovie douBanMovie = (DouBanMovie) JSONUtil.getJSONUtil().getInstanceFromJsonObject(response,new DouBanMovie().getClass());
+                callback.onGetDouBanBeanFromServer(douBanMovie);
+            }
+        });
 
     }
 
@@ -72,7 +85,14 @@ public class DouBanAPI {
         client.post(getAbsoluteURL(url), params, responseHandler);
     }
 
-    public interface DouBanAPICallback {
-        public void onGetDouBanBeanFromServer(List<DouBanMovie> movieList);
+    public static abstract class DouBanAPICallback {
+
+        public void onGetDouBanBeanFromServer(List<DouBanMovie> movieList){
+
+        }
+
+        public void onGetDouBanBeanFromServer(DouBanMovie douBanMovie){
+
+        }
     }
 }
