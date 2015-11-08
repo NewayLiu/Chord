@@ -1,22 +1,25 @@
 package com.thechord.chord.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.inject.Inject;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.thechord.chord.R;
+import com.thechord.chord.adapter.ActorsAdapter;
+import com.thechord.chord.entity.Actor;
 import com.thechord.chord.entity.DouBanMovie;
 import com.thechord.chord.net.DouBanAPI;
 
-import roboguice.fragment.RoboFragment;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import roboguice.inject.InjectView;
 
 /**
@@ -41,8 +44,12 @@ public class MovieIntroductionFragment extends BaseFragment {
     @InjectView(R.id.txtView_movie_brief)
     private TextView textViewSummery;
 
+    @InjectView(R.id.listView_actors)
+    private ListView listViewActors;
 
     private DouBanMovie movie;
+    private ActorsAdapter actorsAdapter;
+
 
     @Nullable
     @Override
@@ -51,9 +58,16 @@ public class MovieIntroductionFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        listViewActors.setAdapter(actorsAdapter);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         movie = getActivity().getIntent().getParcelableExtra("movie");
+        actorsAdapter = new ActorsAdapter(this.getActivity());
     }
 
     @Override
@@ -90,6 +104,17 @@ public class MovieIntroductionFragment extends BaseFragment {
         ImageLoader.getInstance().displayImage(movie.getImage().getLarge(), imgViewMovieImg);
         txtViewYear.setText(movie.getYear());
         textViewSummery.setText(movie.getSummary());
+        StringBuilder sb = new StringBuilder();
+        for(String tag : movie.getGenres()) {
+            sb.append(tag);
+            sb.append(" ");
+        }
+        txtViewMovieTag.setText(sb.toString());
+        List<Actor> actorList = new ArrayList<>();
+        for(Actor actor : movie.getCasts()){
+            actorList.add(actor);
+        }
+        actorsAdapter.updateData(actorList);
     }
 
 

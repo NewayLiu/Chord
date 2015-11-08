@@ -1,8 +1,5 @@
 package com.thechord.chord.net;
 
-import android.util.Log;
-
-import com.alibaba.fastjson.JSON;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -16,7 +13,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 /**
@@ -53,7 +49,7 @@ public class DouBanAPI {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    List<DouBanMovie> movieList = JSONUtil.getJSONUtil().getInstatnceFromJSONObject(response.getJSONArray("subjects"), new DouBanMovie().getClass());
+                    List<DouBanMovie> movieList = JSONUtil.getJSONUtil().getInstanceFromJSONObject(response.getJSONArray("subjects"), new DouBanMovie().getClass());
                     callback.onGetDouBanBeanFromServer(movieList);
                 } catch (JSONException e) {
                     e.printStackTrace();

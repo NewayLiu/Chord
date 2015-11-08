@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,11 @@ public class JSONUtil<T> {
 
     private static final JSONUtil jsonUtil = new JSONUtil();
 
-    private JSONUtil(){
+    private JSONUtil() {
 
     }
 
-    public static JSONUtil getJSONUtil(){
+    public static JSONUtil getJSONUtil() {
         return jsonUtil;
     }
 
@@ -43,7 +44,7 @@ public class JSONUtil<T> {
 
             String jsonField = field.getName();
             String className = null;
-            if(jsonField.equals("Creator")) {
+            if (jsonField.toUpperCase().equals("Creator".toUpperCase())) {
                 continue;
             }
 
@@ -62,8 +63,20 @@ public class JSONUtil<T> {
             try {
                 field.setAccessible(true);
 
+                /**
+                 * 在这处理自定义类的数组
+                 */
                 if (className != null) {
-                    field.set(obj,getInstanceFromJsonObject(jsonObj.getJSONObject(jsonField),Class.forName(className).newInstance().getClass()));
+                    if(jsonObj.get(jsonField) instanceof JSONArray) {
+                        JSONArray valueArray = (JSONArray) jsonObj.get(jsonField);
+                        Object values [] = (Object[]) Array.newInstance(field.getType().getComponentType(),valueArray.length());
+                        for (int i = 0; i < valueArray.length(); i++) {
+                            values[i] = getInstanceFromJsonObject(valueArray.getJSONObject(i), Class.forName(className).newInstance().getClass());
+                        }
+                        field.set(obj,values);
+                    } else {
+                        field.set(obj, getInstanceFromJsonObject(jsonObj.getJSONObject(jsonField), Class.forName(className).newInstance().getClass()));
+                    }
                     continue;
                 }
 
@@ -79,6 +92,16 @@ public class JSONUtil<T> {
                     field.setDouble(obj, jsonObj.getDouble(jsonField));
                 } else if (field.getType() == boolean.class) {
                     field.setBoolean(obj, jsonObj.getBoolean(jsonField));
+                } else if (field.getType().isArray() && jsonObj.get(jsonField) instanceof JSONArray) {
+                    /**
+                     * 处理原生类型的数组
+                     */
+                    JSONArray valueArray = (JSONArray) jsonObj.get(jsonField);
+                    Object values [] = (Object[]) Array.newInstance(field.getType().getComponentType(),valueArray.length());
+                    for (int i = 0; i < valueArray.length(); i++) {
+                        values[i] = valueArray.get(i);
+                    }
+                    field.set(obj, values);
                 } else {
                     field.set(obj, jsonObj.get(jsonField));
                 }
@@ -96,7 +119,7 @@ public class JSONUtil<T> {
         return (T) obj;
     }
 
-    public List<T> getInstatnceFromJSONObject(JSONArray jsonArray, Class<T> instance) {
+    public List<T> getInstanceFromJSONObject(JSONArray jsonArray, Class<T> instance) {
         List<T> list = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             try {

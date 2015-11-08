@@ -8,7 +8,7 @@ import com.thechord.chord.util.JsonFieldAnnotation;
 /**
  * Created by Neway on 2015/8/20.
  */
-public class DouBanMovie implements Parcelable{
+public class DouBanMovie implements Parcelable {
 
     private String id;
     private String title;
@@ -30,16 +30,19 @@ public class DouBanMovie implements Parcelable{
 
     @JsonFieldAnnotation(className = "com.thechord.chord.entity.Image")
     private Image images;
-
-
     private String subType;
     private String website;
-    private String [] genres;
 
-    public DouBanMovie(){
+
+
+    @JsonFieldAnnotation(className = "com.thechord.chord.entity.Actor")
+    private Actor[] casts;
+
+    private String[] genres;
+
+    public DouBanMovie() {
 
     }
-
 
     protected DouBanMovie(Parcel in) {
         id = in.readString();
@@ -48,16 +51,16 @@ public class DouBanMovie implements Parcelable{
         alt = in.readString();
         mobileURL = in.readString();
         year = in.readString();
+        summary = in.readString();
         ratingsCount = in.readInt();
         wishCount = in.readInt();
         collectCount = in.readInt();
         images = in.readParcelable(Image.class.getClassLoader());
         subType = in.readString();
         website = in.readString();
-        summary = in.readString();
-        genres = (String[]) in.readArray(String.class.getClassLoader());
+        casts = in.createTypedArray(Actor.CREATOR);
+        genres = in.createStringArray();
     }
-
 
     public static final Creator<DouBanMovie> CREATOR = new Creator<DouBanMovie>() {
         @Override
@@ -95,6 +98,13 @@ public class DouBanMovie implements Parcelable{
         this.originalTitle = originalTitle;
     }
 
+    public Actor[] getCasts() {
+        return casts;
+    }
+
+    public void setCasts(Actor[] casts) {
+        this.casts = casts;
+    }
 
     public String getAlt() {
         return alt;
@@ -185,7 +195,6 @@ public class DouBanMovie implements Parcelable{
         this.genres = genres;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -206,6 +215,7 @@ public class DouBanMovie implements Parcelable{
         dest.writeParcelable(images, flags);
         dest.writeString(subType);
         dest.writeString(website);
+        dest.writeTypedArray(casts, flags);
         dest.writeStringArray(genres);
     }
 }
